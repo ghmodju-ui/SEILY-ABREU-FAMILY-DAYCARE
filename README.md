@@ -1,6 +1,6 @@
 # Seily Abreu Family Daycare — Sitio web
 
-Next.js 14 (App Router) + Tailwind CSS + TypeScript. Bilingüe (ES/EN), carrito, tienda de uniformes, formulario de inscripción y checkout con PayKings.
+Next.js 15 (App Router) + Tailwind CSS + TypeScript. Bilingüe (ES/EN), carrito, tienda de uniformes, formulario de inscripción y checkout con PayKings.
 
 ## Ejecutar localmente
 
@@ -20,6 +20,7 @@ Sin `PAYKINGS_API_KEY` en desarrollo, los pagos se simulan (modo de prueba).
 
 | Variable | Dónde se usa | Notas |
 |---|---|---|
+| `ENROLLMENT_WEBHOOK_URL` | Solo servidor | Recibe cada inscripción en JSON (Formspree, Zapier, Make…). **Obligatoria** para que el formulario funcione |
 | `NEXT_PUBLIC_PAYKINGS_MERCHANT_ID` | Navegador y servidor | ID público del comercio |
 | `PAYKINGS_API_KEY` | **Solo servidor** | Clave secreta (security key). Nunca la pongas con prefijo `NEXT_PUBLIC_` |
 | `PAYKINGS_API_URL` | Solo servidor | Endpoint de transacciones que te da PayKings. Valor por defecto: `https://paykings.transactiongateway.com/api/transact.php` (confírmalo en tu portal) |
@@ -49,5 +50,7 @@ lib/
 
 ## Pendientes antes de producción
 
-- **Formulario de inscripción:** valida y confirma en pantalla, pero aún no envía los datos a ningún sitio. Conéctalo a un correo o CRM en `components/EnrollmentForm.tsx` (marcado como "Hook point").
+- **Formulario de inscripción:** configura `ENROLLMENT_WEBHOOK_URL` y haz un envío de prueba. Los datos incluyen información de menores: usa un destino privado.
+- Agregar teléfono, dirección y correo del negocio a la sección de contacto.
+- Agregar límite de intentos a la ruta de pago (protección contra pruebas de tarjetas robadas).
 - Confirmar con PayKings el endpoint exacto y los nombres de campos de su API.
